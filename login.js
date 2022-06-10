@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import { SafeAreaView, StyleSheet, TextInput } from "react-native";
 
 const Login = () => {
@@ -6,12 +6,12 @@ const Login = () => {
   const [oneTimePassword, setOneTimePassword] = useState(null);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.margin}>
       <TextInput
         style={styles.input}
         onChangeText={setPhoneNumber}
         value={phoneNumber}
-        placeHolder="555-123-4567"
+        placeholder="555-123-4567"
       />
       <TextInput
         style={styles.input}
@@ -31,7 +31,11 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
-  },
-});
+  }, margin: {
+    marginTop: 100
+  }
+},
+
+);
 
 export default Login;
