@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import Login from './Login.js'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Counter from './Counter.js';
 import SettingsScreen from './SettingsScreen.js';
