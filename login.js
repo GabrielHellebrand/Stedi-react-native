@@ -1,16 +1,41 @@
 import { useState } from "react";
-import { SafeAreaView, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { SafeAreaView, StyleSheet, TextInput, TouchableOpacity, Text } from "react-native";
 
-const sendText= async (phoneNumber) =>{
-  console.log("PhoneNumber:",phoneNumber);
-  await fetch('https://dev.stedi.me/twofactorlogin/'+phoneNumber, {
-    method: "post",
-    headers:{
+async function sendText(phoneNumber){
+  console.log("Phone Number:",phoneNumber);
+  await fetch('https://dev.stedi.me/twofactorlogin/'+phoneNumber, 
+  {
+    method: "POST",
+    headers:
+    {
       'content-type':'application/text'
     }
   });
 }
 
+const getToken= async({oneTimePassword, phoneNumber, setUserLoggedIn}) =>
+{
+  console.log("This should log you in");
+  const tokenResponse=await fetch("https://dev.stedi.me/twofactorlogin",
+  {
+    method: "POST",
+    headers:
+    {
+      "content-type":"application/json"
+    },
+    body:JSON.stringify((oneTimePassword, phoneNumber))
+  });
+  const response=tokenResponse.status;
+  
+  console.log("Response status ")
+  if (response==200){
+    setUserLoggedIn(true);
+  }
+  const tokenResponseString= await tokenResponse.text();
+  console.log(tokenResponseString);
+}
+
+  const Login=(props) =>{
   const [phoneNumber, setPhoneNumber] = useState("");
   const [oneTimePassword, setOneTimePassword] = useState(null);
   const [count, setCount] = useState(0);
@@ -36,15 +61,23 @@ const sendText= async (phoneNumber) =>{
         secureTextEntry={true}
       />
       <TouchableOpacity
+      style={styles.button}
+      onPress={()=>{sendText(phoneNumber)}}
+      >
+      <Text> Send Text </Text> 
+      </TouchableOpacity>
+      <TouchableOpacity
+
         style={styles.button}
         onPress={()=>{
-          sendText(phoneNumber);
+          getToken({phoneNumber, oneTimePassword, setUserLoggedIn:props.setUserLoggedIn});
         }}      
         >
         <Text>Login</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
+};
 
 const styles = StyleSheet.create({
   input: {
