@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { SafeAreaView, StyleSheet, TextInput, TouchableOpacity, Text } from "react-native";
-import {clickProps} from "react-native-web/dist/cjs/modules/forwardedProps";
 
 async function sendText(phoneNumber){
   console.log("Phone Number:",phoneNumber);
@@ -24,7 +23,7 @@ const getToken= async({oneTimePassword, phoneNumber, setUserLoggedIn, setUserNam
     {
       "content-type":"application/json"
     },
-    body:JSON.stringify((oneTimePassword, phoneNumber))
+    body:JSON.stringify({oneTimePassword, phoneNumber})
   });
   const response=tokenResponse.status;
   
