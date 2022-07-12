@@ -29,7 +29,7 @@ const getToken= async({oneTimePassword, phoneNumber, setUserLoggedIn, setUserNam
   const response=tokenResponse.status;
   
   console.log("Response status", response) 
-    if (response==200) 
+    if (response==200) {    
     setUserLoggedIn(true);
   }
   const tokenResponseString= await tokenResponse.text();
@@ -37,18 +37,17 @@ const getToken= async({oneTimePassword, phoneNumber, setUserLoggedIn, setUserNam
   
 {
   method: "GET",
-  headers:
-  {
+  headers:  {
     "content-type": "application/json"
-  }
-}
+  },
+});
 
 const userName= await name.text();
 console.log ("Username is", userName);
-setUserName (userName);
+setUserName(userName);
+}
 
-
-  const Login=await(props) =>{
+  const Login=(props) =>{
   const [phoneNumber, setPhoneNumber] = useState("");
   const [oneTimePassword, setOneTimePassword] = useState(null);
 
@@ -59,7 +58,7 @@ setUserName (userName);
         style={styles.input}
         onChangeText={setPhoneNumber}
         value={phoneNumber}
-        placeholder="555-123-4567"
+        placeholder="760-998-6756"
         placeholderTextColor='#4251f5'
       />
       <TextInput
@@ -81,7 +80,7 @@ setUserName (userName);
 
         style={styles.button}
         onPress={()=>{
-          getToken({phoneNumber, oneTimePassword, setUserLoggedIn:props.setUserLoggedIn});
+          getToken({phoneNumber, oneTimePassword, setUserLoggedIn:props.setUserLoggedIn, setUserName:props.setUserName});
         }}      
         >
         <Text>Login</Text>
